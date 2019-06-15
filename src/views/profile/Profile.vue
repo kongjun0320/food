@@ -3,17 +3,17 @@
         <section class="profile">
             <HeaderTop title="我的"></HeaderTop>
             <section class="profile-number">
-                <router-link to="/login" class="profile-link">
+                <router-link :to="userInfo._id?'/userinfo':'/login'" class="profile-link">
                     <div class="profile_image">
                         <i class="iconfont iconiconpersonaldown"></i>
                     </div>
                     <div class="user-info">
-                        <p class="user-info-top">登录/注册</p>
+                        <p class="user-info-top" v-if="!userInfo.phone">{{ userInfo.name||'登录/注册' }}</p>
                         <p>
                 <span class="user-icon">
                   <i class="iconfont iconziyuan"></i>
                 </span>
-                            <span class="icon-mobile-number">暂无绑定手机号</span>
+                            <span class="icon-mobile-number">{{ userInfo.phone ||'暂无绑定手机号' }}</span>
                         </p>
                     </div>
                     <span class="arrow">
@@ -70,7 +70,7 @@
                     <div class="my_order_div">
                         <span>硅谷外卖会员卡</span>
                         <span class="my_order_icon">
-                <i class="iconfont iconIcon-KeyboardArro " ></i>
+                <i class="iconfont iconIcon-KeyboardArro "></i>
               </span>
                     </div>
                 </a>
@@ -94,11 +94,16 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
     import HeaderTop from '../../components/headerTop/HeaderTop'
+
     export default {
         name: "Profile",
-        components:{
+        components: {
             HeaderTop
+        },
+        computed: {
+            ...mapState(['userInfo'])
         }
     }
 </script>
@@ -108,6 +113,7 @@
     .profile //我的
         width 100%
         overflow hidden
+
         .profile-number
             margin-top 45.5px
 

@@ -5,11 +5,19 @@
   </div>
 </template>
 <script>
+  import  {mapActions} from 'vuex'
   import FooterGuide from './components/footerGuide/FooterGuide'
+
   export default  {
     name:'App',
     components:{
       FooterGuide
+    },
+    mounted() {
+      this.getUserInfo()
+    },
+    methods:{
+      ...mapActions(['getUserInfo'])
     }
   }
 </script>
